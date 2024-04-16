@@ -1,4 +1,4 @@
-# FastAPI Address Management API
+# Address Management Application
 
 ## Overview
 
@@ -13,10 +13,9 @@ This FastAPI application provides APIs for managing addresses. It allows users t
 
 ## Technologies Used
 
-- FastAPI: FastAPI is a modern, fast (high-performance) web framework for building APIs with Python 3.7+.
+- FastAPI: FastAPI is a modern, fast (high-performance) web framework for building APIs with Python 3.11.
 - SQLite: SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.
 - Python: The backend logic of this application is written in Python.
-- Docker (optional): Docker can be used for containerization and deployment of the application.
 
 ## Setup Instructions
 
@@ -44,5 +43,3 @@ This FastAPI application provides APIs for managing addresses. It allows users t
 - `GET /address/`: Retrieve addresses from the database based on search criteria.
 - `PATCH /address/`: Update an existing address in the database.
 - `DELETE /address/{address_id}/`: Delete an address from the database.
-
-## Project Structure
