@@ -1,7 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel  # pylint: disable = no-name-in-module
 
 
-class UpdateAddress(BaseModel):
+class UpdateAddress(BaseModel):  # pylint: disable=too-few-public-methods
     """
     UpdateAddress model contains details for updating an address.
 

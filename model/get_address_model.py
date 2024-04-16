@@ -1,7 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel  # pylint: disable = no-name-in-module
 
 
-class GetAddress(BaseModel):
+class GetAddress(BaseModel):  # pylint: disable=too-few-public-methods
     """
     GetAddress model contains details of a single address.
 

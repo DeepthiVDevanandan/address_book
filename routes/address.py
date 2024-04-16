@@ -1,3 +1,7 @@
+"""
+APIs for CRUD operations on address book application.
+"""
+# pylint: disable=broad-except, E0401
 from fastapi import APIRouter
 from model.get_address_model import GetAddress
 from model.add_address_model import AddAddress
@@ -35,7 +39,8 @@ def get_addresses(longitude: float, latitude: float, distance: float):
            Returns:
            - List of GetAddress.
     """
-    search_criteria = {"longitude": longitude, "latitude": latitude, "distance": distance}
+    search_criteria = {"longitude": longitude, "latitude": latitude,
+                       "distance": distance}
     response = address_api.get_address(search_criteria)
     return response
 

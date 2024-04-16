@@ -1,7 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel  # pylint: disable = no-name-in-module
 
 
-class ResponseModel(BaseModel):
+class ResponseModel(BaseModel):  # pylint: disable=too-few-public-methods
     """
     Response model contains
     status: Success/Failed indicates the status of an API call.
