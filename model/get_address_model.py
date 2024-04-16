@@ -1,14 +1,15 @@
-"""
-Response model to standardise response from server to client.
-"""
-from pydantic import BaseModel  # pylint: disable = no-name-in-module
+from pydantic import BaseModel
 
 
-class GetAddress(BaseModel):  # pylint: disable=too-few-public-methods
+class GetAddress(BaseModel):
     """
-    AddAddress model contains
-    status: Success/Failed indicates the status of an API call.
-    message: will contain the additional information.
+    GetAddress model contains details of a single address.
+
+    Attributes:
+        id (int): The unique identifier for the address.
+        address (str | None): The address string. Can be None if not available.
+        latitude (float | None): The latitude coordinate of the address. Can be None if not available.
+        longitude (float | None): The longitude coordinate of the address. Can be None if not available.
     """
     id: int
     address: str | None
@@ -17,5 +18,14 @@ class GetAddress(BaseModel):  # pylint: disable=too-few-public-methods
 
 
 class SearchInputs(BaseModel):
+    """
+    SearchInputs model contains inputs for searching addresses.
+
+    Attributes:
+        longitude (float): The longitude coordinate for the search.
+        latitude (float): The latitude coordinate for the search.
+        distance (float): The maximum distance within which to search for addresses.
+    """
     longitude: float
     latitude: float
+    distance: float

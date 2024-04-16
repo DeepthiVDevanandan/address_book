@@ -1,14 +1,15 @@
-"""
-Response model to standardise response from server to client.
-"""
-from pydantic import BaseModel  # pylint: disable = no-name-in-module
+from pydantic import BaseModel
 
 
-class UpdateAddress(BaseModel):  # pylint: disable=too-few-public-methods
+class UpdateAddress(BaseModel):
     """
-    AddAddress model contains
-    status: Success/Failed indicates the status of an API call.
-    message: will contain the additional information.
+    UpdateAddress model contains details for updating an address.
+
+    Attributes:
+        id (int): The unique identifier for the address.
+        address (str | None): The updated address string. Can be None if not available.
+        latitude (float | None): The updated latitude coordinate of the address. Can be None if not available.
+        longitude (float | None): The updated longitude coordinate of the address. Can be None if not available.
     """
     id: int
     address: str | None

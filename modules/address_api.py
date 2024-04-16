@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse
 from common.db_connection import create_connection
 from model.response_model import ResponseModel
 from model.add_address_model import AddAddress
+from model.get_address_model import SearchInputs
 from model.update_address_model import UpdateAddress
 
 
@@ -15,8 +16,8 @@ def save_address(address: AddAddress):
         connection = create_connection()
         cursor = connection.cursor()
         cursor.execute(
-            "INSERT INTO addresses (address, latitude, longitude) VALUES (?,?,?)",
-            (address.address, address.latitude, address.longitude))  # Fix: Changed latitude to longitude
+            "INSERT INTO addresses (address, latitude, longitude, created_on) VALUES (?,?,?,?)",
+            (address.address, address.latitude, address.longitude, created_date))  # Fix: Changed latitude to longitude
         address_id = cursor.lastrowid
         connection.commit()
         connection.close()
@@ -33,12 +34,13 @@ def save_address(address: AddAddress):
 # Function to update an existing address in the database
 def update_address(address: UpdateAddress):
     try:
+        updated_on = datetime.now()
         connection = create_connection()
         cursor = connection.cursor()
         cursor.execute(
-            """ UPDATE addresses SET address = ?, latitude = ?, longitude = ?
+            """ UPDATE addresses SET address = ?, latitude = ?, longitude = ?, updated_on = ?
             WHERE id = ?""",
-            (address.address, address.latitude, address.longitude, address.id))  # Fix: Changed latitude to longitude
+            (address.address, address.latitude, address.longitude, address.id, updated_on))  # Fix: Changed latitude to longitude
         rows_updated = cursor.rowcount
         connection.commit()
         connection.close()
@@ -90,7 +92,7 @@ def delete_address(address_id):
 
 
 # Function to get addresses within a certain distance from a given latitude and longitude
-def get_address(latitude, longitude, distance):
+def get_address(search_inputs: SearchInputs):
     try:
         connection = create_connection()
         cursor = connection.cursor()
@@ -99,11 +101,22 @@ def get_address(latitude, longitude, distance):
                (latitude - ?) * (latitude - ?) + 
                (longitude - ?) * (longitude - ?) <= ? * ?
             """,
-            (latitude, latitude, longitude, longitude, distance, distance)
+            (search_inputs["latitude"], search_inputs["latitude"], search_inputs["longitude"],
+             search_inputs["longitude"], search_inputs["distance"], search_inputs["distance"])
         )
         addresses = cursor.fetchall()
         connection.close()
-        return addresses
+        response = []
+        if addresses:
+            for item in addresses:
+                data = {"id": item[0],
+                        "address": item[1],
+                        "latitude": item[2],
+                        "longitude": item[3]}
+                response.append(data)
+            return response
+        else:
+            return []
     except Exception as e:
         return handle_general_error(e)
 

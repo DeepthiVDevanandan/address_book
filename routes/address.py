@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from model.get_address_model import GetAddress, SearchInputs
+from model.get_address_model import GetAddress
 from model.add_address_model import AddAddress
 from model.update_address_model import UpdateAddress
 from model.response_model import ResponseModel
@@ -25,7 +25,7 @@ def save_address(address: AddAddress):
 
 
 @router.get("/", response_model=list[GetAddress])
-def get_addresses(search_criteria: SearchInputs):
+def get_addresses(longitude: float, latitude: float, distance: float):
     """
            API to get addresses from database by searching criteria .
 
@@ -35,7 +35,7 @@ def get_addresses(search_criteria: SearchInputs):
            Returns:
            - List of GetAddress.
     """
-
+    search_criteria = {"longitude": longitude, "latitude": latitude, "distance": distance}
     response = address_api.get_address(search_criteria)
     return response
 

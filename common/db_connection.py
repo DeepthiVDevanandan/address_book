@@ -17,7 +17,8 @@ def create_address_book_table():
             address TEXT NOT NULL,
             latitude FLOAT NOT NULL,
             longitude FLOAT NOT NULL,
-            created_on DATE NULL
+            created_on DATE NULL,
+            updated_on DATE NULL
         )
     """)
     connection.commit()
@@ -32,4 +33,3 @@ def drop_address_book_table():
     """)
     connection.commit()
     connection.close()
-

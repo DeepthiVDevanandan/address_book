@@ -1,10 +1,7 @@
-"""
-Response model to standardise response from server to client.
-"""
-from pydantic import BaseModel  # pylint: disable = no-name-in-module
+from pydantic import BaseModel
 
 
-class ResponseModel(BaseModel):  # pylint: disable=too-few-public-methods
+class ResponseModel(BaseModel):
     """
     Response model contains
     status: Success/Failed indicates the status of an API call.
